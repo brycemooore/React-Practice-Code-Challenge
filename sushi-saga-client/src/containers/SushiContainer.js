@@ -5,7 +5,7 @@ import Sushi from '../components/Sushi'
 const SushiContainer = (props) => {
 
   const renderSushi = () => {
-    return props.theSushi.map((sushi, index) => <Sushi currentBalance={props.currentBalance} updateTable={props.updateTable} changeBalance={props.changeBalance} key={index} sushi={sushi}/>)
+    return props.theSushi.map((sushi, index) => <Sushi sushisEaten={props.sushisEaten} currentBalance={props.currentBalance} updateTable={props.updateTable} changeBalance={props.changeBalance} key={index} sushi={sushi}/>)
   }
   return (
     <Fragment>

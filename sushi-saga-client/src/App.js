@@ -23,10 +23,10 @@ class App extends Component {
     this.getSushis(this.state.sushiIndex);
   }
 
-  updateTable = () => {
+  updateTable = (sushi) => {
     let x = this.state.sushisEaten;
-    x.push("sushi")
-    this.setState({sushisEaten: x})
+    x.push(sushi)
+    this.setState({sushisEaten: x}, console.log(this.state.sushisEaten))
   }
 
   getSushis = (index, cap = 4) => {
@@ -47,13 +47,12 @@ class App extends Component {
     this.setState({balance: this.state.balance + amount})
   }
 
-  checkIndex = () => {
-    if(this.state.sushiIndex >= this.state.sushis.length) this.setState({sushiIndex: 0}, this.addSushis)
+  checkIndex = async () => {
+    if(this.state.sushiIndex >= this.state.sushis.length) this.setState({sushiIndex: 0})
   }
 
-  addSushis = (numToAdd = 4) => {
-    console.log(this.state.sushiIndex >= this.state.sushis.length)
-    this.checkIndex()
+  addSushis = async (numToAdd = 4) => {
+    await this.checkIndex()
     this.getSushis(this.state.sushiIndex, numToAdd);
   }
 
@@ -61,7 +60,7 @@ class App extends Component {
     return ( 
       <div className="app">
         <MoreMoney addBalance={this.addBalance}/>
-        <SushiContainer currentBalance={this.state.balance} updateTable={this.updateTable} changeBalance={this.changeBalance} addSushis={this.addSushis} theSushi={this.state.currentSushis}/>
+        <SushiContainer sushisEaten={this.state.sushisEaten} currentBalance={this.state.balance} updateTable={this.updateTable} changeBalance={this.changeBalance} addSushis={this.addSushis} theSushi={this.state.currentSushis}/>
         <Table theSushi={this.state.sushisEaten} currentBalance={this.state.balance}/>
       </div>
     );

@@ -2,9 +2,10 @@ import React, { Fragment, useState, useEffect  } from 'react'
 
 const Sushi = (props) => {
 
-  const[eaten, setEaten] = useState(false);
+  const[eaten, setEaten] = useState();
 
   useEffect(() => {
+    if(props.sushisEaten.some(sushi => sushi.id == props.sushi.id)) return setEaten(true);
     setEaten(false)
   }, [props.sushi])
 
@@ -12,7 +13,7 @@ const Sushi = (props) => {
   const eatSushi = () => {
     if(eaten) return
     if((props.currentBalance - props.sushi.price) < 0)return alert("You broke")
-    props.updateTable()
+    props.updateTable(props.sushi)
     props.changeBalance(props.sushi.price)
     setEaten(true);
   }
